@@ -1,5 +1,8 @@
 package rocks.zipcode.atm.bank;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import rocks.zipcode.atm.ActionResult;
 
 import java.util.HashMap;
@@ -13,12 +16,15 @@ public class Bank {
     private Map<Integer, Account> accounts = new HashMap<>();
 
     public Bank() {
-        accounts.put(1000, new BasicAccount(new AccountData(
-                1000, "Example 1", "example1@gmail.com", 500
-        )));
+        accounts.put(1000, new BasicAccount(new AccountData(1000, "Example 1", "example1@gmail.com", 500)));
+        accounts.put(1001, new BasicAccount(new AccountData(1001, "Example 2", "example2@gmail.com", 1000)));
+        accounts.put(1002, new BasicAccount(new AccountData(1002, "Example 3", "example3@gmail.com", 3000)));
 
         accounts.put(2000, new PremiumAccount(new AccountData(
-                2000, "Example 2", "example2@gmail.com", 200
+                2000, "Example 4", "example4@gmail.com", 2000
+        )));
+        accounts.put(2001, new PremiumAccount(new AccountData(
+                2001, "Example 5", "example5@gmail.com", 9000
         )));
     }
 
@@ -28,7 +34,7 @@ public class Bank {
         if (account != null) {
             return ActionResult.success(account.getAccountData());
         } else {
-            return ActionResult.fail("No account with id: " + id + "\nTry account 1000 or 2000");
+            return ActionResult.fail("No account with id: " + id + "\nTry a different account number");
         }
     }
 
@@ -42,11 +48,17 @@ public class Bank {
     public ActionResult<AccountData> withdraw(AccountData accountData, int amount) {
         Account account = accounts.get(accountData.getId());
         boolean ok = account.withdraw(amount);
-
         if (ok) {
-            return ActionResult.success(account.getAccountData());
-        } else {
+
+                return ActionResult.success(account.getAccountData());
+        }
+         else {
+            Alert overDraftAlert = new Alert(Alert.AlertType.WARNING);
+            overDraftAlert.setContentText("This transaction is above the OverDraft Limit");
+            overDraftAlert.showAndWait();
             return ActionResult.fail("Withdraw failed: " + amount + ". Account has: " + account.getBalance());
+
         }
     }
 }
+
