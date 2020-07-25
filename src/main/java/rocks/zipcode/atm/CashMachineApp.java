@@ -35,6 +35,7 @@ public class CashMachineApp extends Application {
 
         Button btnDeposit = new Button("Deposit");
         btnDeposit.setOnAction(e -> {
+
             int amount = Integer.parseInt(field.getText());
             cashMachine.deposit(amount);
 
@@ -43,7 +44,9 @@ public class CashMachineApp extends Application {
 
         Button btnWithdraw = new Button("Withdraw");
         btnWithdraw.setOnAction(e -> {
+
             int amount = Integer.parseInt(field.getText());
+
             cashMachine.withdraw(amount);
 
             areaInfo.setText(cashMachine.toString());
