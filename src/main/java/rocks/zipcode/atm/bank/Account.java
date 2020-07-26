@@ -39,6 +39,6 @@ public abstract class Account {
 
     private void updateBalance(int newBalance) {
         accountData = new AccountData(accountData.getId(), accountData.getName(), accountData.getEmail(),
-                newBalance);
+                newBalance, accountData.getType());
     }
 }

@@ -1,6 +1,7 @@
 package rocks.zipcode.atm;
 
 import javafx.scene.control.*;
+import rocks.zipcode.atm.bank.AccountData;
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -85,15 +86,26 @@ public class CashMachineApp extends Application {
         Label accountselected = new Label("No Account selected");
         basic.setOnAction(e ->{
             accountselected.setText("Basic Account");
-
+            String emailAddress = email.getText();
+            String name = cashMachine.getAccountData(emailAddress).getName();
+            cashMachine.getAccountType(name, "Basic");
+            areaInfo.setText(cashMachine.toString());
 
         });
         premium.setOnAction(e ->{
             accountselected.setText("Premium Account");
+            String emailAddress = email.getText();
+            String name = cashMachine.getAccountData(emailAddress).getName();
+            cashMachine.getAccountType(name, "Premium");
+            areaInfo.setText(cashMachine.toString());
 
         });
         ksa.setOnAction(e ->{
             accountselected.setText("Kids Savings Account");
+            String emailAddress = email.getText();
+            String name = cashMachine.getAccountData(emailAddress).getName();
+            cashMachine.getAccountType(name, "Kids Savings");
+            areaInfo.setText(cashMachine.toString());
 
         });
 
