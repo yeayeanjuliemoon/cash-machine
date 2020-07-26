@@ -15,6 +15,10 @@ import javafx.scene.layout.FlowPane;
 public class CashMachineApp extends Application {
 
     private TextField field = new TextField();
+
+    private TextField email = new TextField();
+
+
     private CashMachine cashMachine = new CashMachine(new Bank());
 
     private Parent createContent() {
@@ -22,15 +26,35 @@ public class CashMachineApp extends Application {
         vbox.setPrefSize(600, 600);
 
         TextArea areaInfo = new TextArea();
+        FlowPane flowpane = new FlowPane();
+
+        Button emailSubmit = new Button("Email Login");
+        emailSubmit.setOnAction(e -> {
+            String emailAddress = email.getText();
+            cashMachine.login(emailAddress);
+
+            areaInfo.setText(cashMachine.toString());
+        });
 
         Button btnSubmit = new Button("Set Account ID");
+        flowpane.getChildren().add(btnSubmit);
+        Button btnDeposit = new Button("Deposit");
+        Button btnWithdraw = new Button("Withdraw");
+
+
         btnSubmit.setOnAction(e -> {
             int id = Integer.parseInt(field.getText());
             cashMachine.login(id);
 
             areaInfo.setText(cashMachine.toString());
+
+            flowpane.getChildren().add(btnDeposit);
+            flowpane.getChildren().add(btnWithdraw);
+            flowpane.getChildren().remove(btnSubmit);
+            flowpane.getChildren().remove(emailSubmit);
         });
 
+<<<<<<< HEAD
 
         MenuItem basic =new MenuItem("Basic");
         MenuItem premium = new MenuItem("Premium");
@@ -53,6 +77,9 @@ public class CashMachineApp extends Application {
 
 
         Button btnDeposit = new Button("Deposit");
+=======
+//        Button btnDeposit = new Button("Deposit");
+>>>>>>> a60fcdb006df6de2659629165823db4ca80764a1
         btnDeposit.setOnAction(e -> {
 
             int amount = Integer.parseInt(field.getText());
@@ -62,7 +89,7 @@ public class CashMachineApp extends Application {
 
         });
 
-        Button btnWithdraw = new Button("Withdraw");
+//        Button btnWithdraw = new Button("Withdraw");
         btnWithdraw.setOnAction(e -> {
 
             int amount = Integer.parseInt(field.getText());
@@ -79,16 +106,31 @@ public class CashMachineApp extends Application {
             cashMachine.exit();
 
             areaInfo.setText(cashMachine.toString());
+
+            flowpane.getChildren().add(btnSubmit);
+            flowpane.getChildren().add(emailSubmit);
+            flowpane.getChildren().remove(btnWithdraw);
+            flowpane.getChildren().remove(btnDeposit);
+
         });
 
-        FlowPane flowpane = new FlowPane();
+//        FlowPane flowpane = new FlowPane();
+        field.setText("Field Prefill");
+        email.setText("Email Address"); // you can set the prefilled text with this method
 
-        flowpane.getChildren().add(btnSubmit);
-        flowpane.getChildren().add(btnDeposit);
-        flowpane.getChildren().add(btnWithdraw);
+
+        flowpane.getChildren().add(emailSubmit);
+//        flowpane.getChildren().add(btnSubmit);
+//        flowpane.getChildren().add(btnDeposit);
+//        flowpane.getChildren().add(btnWithdraw);
         flowpane.getChildren().add(btnExit);
+<<<<<<< HEAD
         flowpane.getChildren().add(menuButton);
         vbox.getChildren().addAll(field, flowpane,accountselected, areaInfo);
+=======
+
+        vbox.getChildren().addAll(field, email, flowpane, areaInfo);
+>>>>>>> a60fcdb006df6de2659629165823db4ca80764a1
         return vbox;
     }
 
