@@ -35,6 +35,39 @@ public class CashMachineApp extends Application {
         TextArea areaInfo = new TextArea();
         FlowPane flowpane = new FlowPane();
 
+        MenuItem basic =new MenuItem("Basic");
+        MenuItem premium = new MenuItem("Premium");
+        MenuItem ksa = new MenuItem("KSA");
+        MenuButton menuButton =new MenuButton("Account Type",null,basic,premium,ksa);
+        Label accountSelected = new Label("No Account selected");
+        basic.setOnAction(e ->{
+            accountSelected.setText("Basic Account");
+            menuButton.setText("Basic");
+            String emailAddress = email.getText();
+            String name = cashMachine.getAccountData(emailAddress).getName();
+            cashMachine.getAccountType(name, "Basic");
+            areaInfo.setText(cashMachine.toString());
+
+       });
+        premium.setOnAction(e ->{
+            accountSelected.setText("Premium Account");
+            menuButton.setText("Premium");
+            String emailAddress = email.getText();
+            String name = cashMachine.getAccountData(emailAddress).getName();
+            cashMachine.getAccountType(name, "Premium");
+            areaInfo.setText(cashMachine.toString());
+
+        });
+        ksa.setOnAction(e ->{
+            accountSelected.setText("Kids Savings Account");
+            menuButton.setText("KSA");
+            String emailAddress = email.getText();
+            String name = cashMachine.getAccountData(emailAddress).getName();
+            cashMachine.getAccountType(name, "Kids Savings");
+            areaInfo.setText(cashMachine.toString());
+
+        });
+
         Button emailSubmit = new Button("Email Login");
         Button btnSubmit = new Button("Set Account ID");
         Button btnDeposit = new Button("Deposit");
@@ -44,19 +77,27 @@ public class CashMachineApp extends Application {
         emailSubmit.setOnAction(e -> {
             String emailAddress = email.getText();
             cashMachine.login(emailAddress);
-
             areaInfo.setText(cashMachine.toString());
+
+            if(!cashMachine.isAccount()) {
+                return;
+            }
 
             flowpane.getChildren().add(btnDeposit);
             flowpane.getChildren().add(btnWithdraw);
             flowpane.getChildren().remove(btnSubmit);
             flowpane.getChildren().remove(emailSubmit);
+            flowpane.getChildren().add(menuButton);
+
 
             deposit.setText("Deposit Amount");
             vbox.getChildren().add(deposit);
 
             withdraw.setText("Withdraw Amount");
             vbox.getChildren().add(withdraw);
+
+            vbox.getChildren().remove(field);
+            vbox.getChildren().remove(email);
 
         });
 
@@ -64,54 +105,27 @@ public class CashMachineApp extends Application {
         btnSubmit.setOnAction(e -> {
             int id = Integer.parseInt(field.getText());
             cashMachine.login(id);
-
             areaInfo.setText(cashMachine.toString());
+
+            if(!cashMachine.isAccount()) {
+                return;
+            }
 
             flowpane.getChildren().add(btnDeposit);
             flowpane.getChildren().add(btnWithdraw);
             flowpane.getChildren().remove(btnSubmit);
             flowpane.getChildren().remove(emailSubmit);
+            flowpane.getChildren().add(menuButton);
 
             deposit.setText("Deposit Amount");
             vbox.getChildren().add(deposit);
 
             withdraw.setText("Withdraw Amount");
             vbox.getChildren().add(withdraw);
+
+            vbox.getChildren().remove(field);
+            vbox.getChildren().remove(email);
         });
-
-        MenuItem basic =new MenuItem("Basic");
-        MenuItem premium = new MenuItem("Premium");
-        MenuItem ksa = new MenuItem("KSA");
-        MenuButton menuButton =new MenuButton("Account Type",null,basic,premium,ksa);
-        Label accountselected = new Label("No Account selected");
-        basic.setOnAction(e ->{
-            accountselected.setText("Basic Account");
-            String emailAddress = email.getText();
-            String name = cashMachine.getAccountData(emailAddress).getName();
-            cashMachine.getAccountType(name, "Basic");
-            areaInfo.setText(cashMachine.toString());
-
-        });
-        premium.setOnAction(e ->{
-            accountselected.setText("Premium Account");
-            String emailAddress = email.getText();
-            String name = cashMachine.getAccountData(emailAddress).getName();
-            cashMachine.getAccountType(name, "Premium");
-            areaInfo.setText(cashMachine.toString());
-
-        });
-        ksa.setOnAction(e ->{
-            accountselected.setText("Kids Savings Account");
-            String emailAddress = email.getText();
-            String name = cashMachine.getAccountData(emailAddress).getName();
-            cashMachine.getAccountType(name, "Kids Savings");
-            areaInfo.setText(cashMachine.toString());
-
-        });
-
-
-
-        //Button btnDeposit = new Button("Deposit");
 
         btnDeposit.setOnAction(e -> {
 
@@ -131,6 +145,7 @@ public class CashMachineApp extends Application {
         });
 
         btnExit.setOnAction(e -> {
+            cashMachine.setAccountFlag(false);
             cashMachine.exit();
 
             areaInfo.setText(cashMachine.toString());
@@ -139,9 +154,15 @@ public class CashMachineApp extends Application {
             flowpane.getChildren().add(emailSubmit);
             flowpane.getChildren().remove(btnWithdraw);
             flowpane.getChildren().remove(btnDeposit);
+            flowpane.getChildren().remove(menuButton);
 
             vbox.getChildren().remove(deposit);
             vbox.getChildren().remove(withdraw);
+            field.setText("ID Login");
+            vbox.getChildren().add(field);
+            email.setText("Email");
+            vbox.getChildren().add(email);
+
 
         });
 
@@ -153,8 +174,7 @@ public class CashMachineApp extends Application {
 
         flowpane.getChildren().add(btnExit);
 
-        flowpane.getChildren().add(menuButton);
-        vbox.getChildren().addAll(field, email,flowpane,accountselected, areaInfo);
+        vbox.getChildren().addAll(field, email,flowpane, areaInfo);
 
         return vbox;
     }

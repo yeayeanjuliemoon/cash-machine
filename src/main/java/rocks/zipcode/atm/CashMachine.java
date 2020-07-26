@@ -13,6 +13,7 @@ public class CashMachine {
 
     private final Bank bank;
     private AccountData accountData = null;
+    private boolean accountFlag = false;
 
     public CashMachine(Bank bank) {
         this.bank = bank;
@@ -20,6 +21,9 @@ public class CashMachine {
 
     private Consumer<AccountData> update = data -> {
         accountData = data;
+        if(null != data.getEmail()) {
+            accountFlag = true;
+        }
     };
 
     public void login(int id) {
@@ -94,5 +98,13 @@ public class CashMachine {
                 update
         );
         return accountData;
+    }
+
+    public boolean isAccount() {
+        return this.accountFlag;
+    }
+
+    public void setAccountFlag(boolean flag) {
+        this.accountFlag = flag;
     }
 }
