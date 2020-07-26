@@ -34,6 +34,10 @@ public class CashMachineApp extends Application {
 
         TextArea areaInfo = new TextArea();
         FlowPane flowpane = new FlowPane();
+        TextArea welcome = new TextArea();
+        welcome.setText("Welcome to ZipCloud Bank!!\n Enjoy your Banking with us!!");
+        welcome.setPrefHeight(40);  //sets height of the TextArea to 400 pixels
+        welcome.setPrefWidth(40);
 
         MenuItem basic =new MenuItem("Basic");
         MenuItem premium = new MenuItem("Premium");
@@ -129,7 +133,7 @@ public class CashMachineApp extends Application {
 
         btnDeposit.setOnAction(e -> {
 
-            int amount = Integer.parseInt(deposit.getText());
+            Float amount = Float.parseFloat(deposit.getText());
             cashMachine.deposit(amount);
 
             areaInfo.setText(cashMachine.toString());
@@ -137,7 +141,7 @@ public class CashMachineApp extends Application {
 
         btnWithdraw.setOnAction(e -> {
 
-            int amount = Integer.parseInt(withdraw.getText());
+            Float amount = Float.parseFloat(withdraw.getText());
 
             cashMachine.withdraw(amount);
 
@@ -174,7 +178,8 @@ public class CashMachineApp extends Application {
 
         flowpane.getChildren().add(btnExit);
 
-        vbox.getChildren().addAll(field, email,flowpane, areaInfo);
+        vbox.getChildren().addAll(welcome,field, email,flowpane, areaInfo);
+        flowpane.setHgap(20);
 
         return vbox;
     }

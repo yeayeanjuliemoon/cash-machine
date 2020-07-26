@@ -9,13 +9,13 @@ public final class AccountData {
     private final String name;
     private final String email;
     private final String type;
-    private final int balance;
+    private final Float balance;
 
     public String getType() {
         return type;
     }
 
-    AccountData(int id, String name, String email, int balance, String type) {
+    AccountData(int id, String name, String email, Float balance, String type) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -35,7 +35,7 @@ public final class AccountData {
         return email;
     }
 
-    public int getBalance() {
+    public Float getBalance() {
         return balance;
     }
 
