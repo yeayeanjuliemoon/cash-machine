@@ -54,8 +54,6 @@ public class CashMachineApp extends Application {
             flowpane.getChildren().remove(emailSubmit);
         });
 
-<<<<<<< HEAD
-
         MenuItem basic =new MenuItem("Basic");
         MenuItem premium = new MenuItem("Premium");
         MenuItem ksa = new MenuItem("KSA");
@@ -63,6 +61,7 @@ public class CashMachineApp extends Application {
         Label accountselected = new Label("No Account selected");
         basic.setOnAction(e ->{
             accountselected.setText("Basic Account");
+
 
         });
         premium.setOnAction(e ->{
@@ -76,10 +75,8 @@ public class CashMachineApp extends Application {
 
 
 
-        Button btnDeposit = new Button("Deposit");
-=======
-//        Button btnDeposit = new Button("Deposit");
->>>>>>> a60fcdb006df6de2659629165823db4ca80764a1
+        //Button btnDeposit = new Button("Deposit");
+
         btnDeposit.setOnAction(e -> {
 
             int amount = Integer.parseInt(field.getText());
@@ -124,13 +121,10 @@ public class CashMachineApp extends Application {
 //        flowpane.getChildren().add(btnDeposit);
 //        flowpane.getChildren().add(btnWithdraw);
         flowpane.getChildren().add(btnExit);
-<<<<<<< HEAD
-        flowpane.getChildren().add(menuButton);
-        vbox.getChildren().addAll(field, flowpane,accountselected, areaInfo);
-=======
 
-        vbox.getChildren().addAll(field, email, flowpane, areaInfo);
->>>>>>> a60fcdb006df6de2659629165823db4ca80764a1
+        flowpane.getChildren().add(menuButton);
+        vbox.getChildren().addAll(field, email,flowpane,accountselected, areaInfo);
+
         return vbox;
     }
 
