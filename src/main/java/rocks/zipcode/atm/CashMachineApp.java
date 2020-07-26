@@ -20,6 +20,9 @@ public class CashMachineApp extends Application {
 
     private TextField email = new TextField();
 
+    private TextField deposit = new TextField();
+
+    private TextField withdraw = new TextField();
 
     private CashMachine cashMachine = new CashMachine(new Bank());
 
@@ -31,17 +34,29 @@ public class CashMachineApp extends Application {
         FlowPane flowpane = new FlowPane();
 
         Button emailSubmit = new Button("Email Login");
+        Button btnSubmit = new Button("Set Account ID");
+        Button btnDeposit = new Button("Deposit");
+        Button btnWithdraw = new Button("Withdraw");
+        Button btnExit = new Button("Exit");
+
         emailSubmit.setOnAction(e -> {
             String emailAddress = email.getText();
             cashMachine.login(emailAddress);
 
             areaInfo.setText(cashMachine.toString());
-        });
 
-        Button btnSubmit = new Button("Set Account ID");
-        flowpane.getChildren().add(btnSubmit);
-        Button btnDeposit = new Button("Deposit");
-        Button btnWithdraw = new Button("Withdraw");
+            flowpane.getChildren().add(btnDeposit);
+            flowpane.getChildren().add(btnWithdraw);
+            flowpane.getChildren().remove(btnSubmit);
+            flowpane.getChildren().remove(emailSubmit);
+
+            deposit.setText("Deposit Amount");
+            vbox.getChildren().add(deposit);
+
+            withdraw.setText("Withdraw Amount");
+            vbox.getChildren().add(withdraw);
+
+        });
 
 
         btnSubmit.setOnAction(e -> {
@@ -54,28 +69,31 @@ public class CashMachineApp extends Application {
             flowpane.getChildren().add(btnWithdraw);
             flowpane.getChildren().remove(btnSubmit);
             flowpane.getChildren().remove(emailSubmit);
+
+            deposit.setText("Deposit Amount");
+            vbox.getChildren().add(deposit);
+
+            withdraw.setText("Withdraw Amount");
+            vbox.getChildren().add(withdraw);
         });
 
-//        Button btnDeposit = new Button("Deposit");
         btnDeposit.setOnAction(e -> {
 
-            int amount = Integer.parseInt(field.getText());
+            int amount = Integer.parseInt(deposit.getText());
             cashMachine.deposit(amount);
 
             areaInfo.setText(cashMachine.toString());
         });
 
-//        Button btnWithdraw = new Button("Withdraw");
         btnWithdraw.setOnAction(e -> {
 
-            int amount = Integer.parseInt(field.getText());
+            int amount = Integer.parseInt(withdraw.getText());
 
             cashMachine.withdraw(amount);
 
             areaInfo.setText(cashMachine.toString());
         });
 
-        Button btnExit = new Button("Exit");
         btnExit.setOnAction(e -> {
             cashMachine.exit();
 
@@ -86,17 +104,17 @@ public class CashMachineApp extends Application {
             flowpane.getChildren().remove(btnWithdraw);
             flowpane.getChildren().remove(btnDeposit);
 
+            vbox.getChildren().remove(deposit);
+            vbox.getChildren().remove(withdraw);
+
         });
 
-//        FlowPane flowpane = new FlowPane();
-        field.setText("Field Prefill");
-        email.setText("Email Address"); // you can set the prefilled text with this method
-
-
+        email.setText("Email Address");
         flowpane.getChildren().add(emailSubmit);
-//        flowpane.getChildren().add(btnSubmit);
-//        flowpane.getChildren().add(btnDeposit);
-//        flowpane.getChildren().add(btnWithdraw);
+
+        field.setText("ID Login");
+        flowpane.getChildren().add(btnSubmit);
+
         flowpane.getChildren().add(btnExit);
 
         vbox.getChildren().addAll(field, email, flowpane, areaInfo);

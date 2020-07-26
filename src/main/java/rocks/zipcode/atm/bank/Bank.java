@@ -1,7 +1,5 @@
 package rocks.zipcode.atm.bank;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import rocks.zipcode.atm.ActionResult;
 
@@ -41,9 +39,6 @@ public class Bank {
     }
 
     public ActionResult<AccountData>  getAccountByEmail(String email) {
-        // Loop through the account map and find the BasicAccount which has the email passed by the method
-        // return similar to the getAccountByID method
-
         Iterator it = accounts.entrySet().iterator();
         while (it.hasNext()) {
             Entry pair = (Entry)it.next();
@@ -54,16 +49,6 @@ public class Bank {
         }
         return ActionResult.fail("No account with email: " + email + "\nTry a different email address");
     }
-
-
-
-
-//        accounts.forEach((key, value) -> {
-//            if (value.getAccountData().getEmail().equals(email)) {
-//                return ActionResult.success(accounts.get((Integer) key).getAccountData());
-//            }
-//
-//        });
 
 
     public ActionResult<AccountData> deposit(AccountData accountData, int amount) {
