@@ -36,6 +36,14 @@ public class CashMachine {
         );
     }
 
+    public AccountData getAccountData(String email) {
+        tryCall(
+                () -> bank.getAccountByEmail(email),
+                update
+        );
+        return accountData;
+    }
+
     public void deposit(int amount) {
         if (accountData != null) {
             tryCall(
@@ -78,5 +86,13 @@ public class CashMachine {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
+    }
+
+    public AccountData getAccountType(String name, String type) {
+        tryCall(
+                () -> bank.getAccountByType(name, type),
+                update
+        );
+        return accountData;
     }
 }

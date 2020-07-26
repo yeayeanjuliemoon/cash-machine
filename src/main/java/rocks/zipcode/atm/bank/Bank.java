@@ -16,15 +16,19 @@ public class Bank {
     private Map<Integer, Account> accounts = new HashMap<>();
 
     public Bank() {
-        accounts.put(1000, new BasicAccount(new AccountData(1000, "Example 1", "example1@gmail.com", 500)));
-        accounts.put(1001, new BasicAccount(new AccountData(1001, "Example 2", "example2@gmail.com", 1000)));
-        accounts.put(1002, new BasicAccount(new AccountData(1002, "Example 3", "example3@gmail.com", 3000)));
+        accounts.put(1000, new BasicAccount(new AccountData(1000, "Example 1", "example1@gmail.com", 500,"Basic")));
+        accounts.put(1001, new BasicAccount(new AccountData(1001, "Example 2", "example2@gmail.com", 1000,"Basic")));
+        accounts.put(1002, new BasicAccount(new AccountData(1002, "Example 3", "example3@gmail.com", 3000,"Basic")));
 
         accounts.put(2000, new PremiumAccount(new AccountData(
-                2000, "Example 4", "example4@gmail.com", 2000
+                2000, "Example 1", "example1@gmail.com", 2000,"Premium"
         )));
         accounts.put(2001, new PremiumAccount(new AccountData(
-                2001, "Example 5", "example5@gmail.com", 9000
+                2001, "Example 5", "example5@gmail.com", 9000,"Premium"
+        )));
+
+        accounts.put(3000, new KidsAccount(new AccountData(
+                2000, "Example 2", "example4@gmail.com", 2000,"Kids Savings"
         )));
     }
 
@@ -62,8 +66,7 @@ public class Bank {
         Account account = accounts.get(accountData.getId());
         boolean ok = account.withdraw(amount);
         if (ok) {
-
-                return ActionResult.success(account.getAccountData());
+            return ActionResult.success(account.getAccountData());
         }
          else {
             Alert overDraftAlert = new Alert(Alert.AlertType.WARNING);
@@ -74,5 +77,19 @@ public class Bank {
         }
     }
 
+    public ActionResult<AccountData>  getAccountByType(String name, String type) {
+        Iterator it = accounts.entrySet().iterator();
+        while (it.hasNext()) {
+            Entry account = (Entry)it.next();
+            Account bankValue = (Account) account.getValue();
+            if (bankValue.getAccountData().getName().equals(name) && bankValue.getAccountData().getType().equals(type)) {
+                return ActionResult.success(bankValue.getAccountData());
+            }
+        }
+        Alert noAccount = new Alert(Alert.AlertType.ERROR);
+        noAccount.setContentText("No Account Found");
+        noAccount.showAndWait();
+        return ActionResult.fail("No account found");
+    }
 }
 

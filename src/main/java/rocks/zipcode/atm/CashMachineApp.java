@@ -1,5 +1,7 @@
 package rocks.zipcode.atm;
 
+import javafx.scene.control.*;
+import rocks.zipcode.atm.bank.AccountData;
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -27,7 +29,7 @@ public class CashMachineApp extends Application {
     private CashMachine cashMachine = new CashMachine(new Bank());
 
     private Parent createContent() {
-        VBox vbox = new VBox(10);
+        VBox vbox = new VBox(20);
         vbox.setPrefSize(600, 600);
 
         TextArea areaInfo = new TextArea();
@@ -77,6 +79,40 @@ public class CashMachineApp extends Application {
             vbox.getChildren().add(withdraw);
         });
 
+        MenuItem basic =new MenuItem("Basic");
+        MenuItem premium = new MenuItem("Premium");
+        MenuItem ksa = new MenuItem("KSA");
+        MenuButton menuButton =new MenuButton("Account Type",null,basic,premium,ksa);
+        Label accountselected = new Label("No Account selected");
+        basic.setOnAction(e ->{
+            accountselected.setText("Basic Account");
+            String emailAddress = email.getText();
+            String name = cashMachine.getAccountData(emailAddress).getName();
+            cashMachine.getAccountType(name, "Basic");
+            areaInfo.setText(cashMachine.toString());
+
+        });
+        premium.setOnAction(e ->{
+            accountselected.setText("Premium Account");
+            String emailAddress = email.getText();
+            String name = cashMachine.getAccountData(emailAddress).getName();
+            cashMachine.getAccountType(name, "Premium");
+            areaInfo.setText(cashMachine.toString());
+
+        });
+        ksa.setOnAction(e ->{
+            accountselected.setText("Kids Savings Account");
+            String emailAddress = email.getText();
+            String name = cashMachine.getAccountData(emailAddress).getName();
+            cashMachine.getAccountType(name, "Kids Savings");
+            areaInfo.setText(cashMachine.toString());
+
+        });
+
+
+
+        //Button btnDeposit = new Button("Deposit");
+
         btnDeposit.setOnAction(e -> {
 
             int amount = Integer.parseInt(deposit.getText());
@@ -117,7 +153,9 @@ public class CashMachineApp extends Application {
 
         flowpane.getChildren().add(btnExit);
 
-        vbox.getChildren().addAll(field, email, flowpane, areaInfo);
+        flowpane.getChildren().add(menuButton);
+        vbox.getChildren().addAll(field, email,flowpane,accountselected, areaInfo);
+
         return vbox;
     }
 
