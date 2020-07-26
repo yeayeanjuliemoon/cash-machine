@@ -16,19 +16,19 @@ public class Bank {
     private Map<Integer, Account> accounts = new HashMap<>();
 
     public Bank() {
-        accounts.put(1000, new BasicAccount(new AccountData(1000, "Example 1", "example1@gmail.com", 500,"Basic")));
-        accounts.put(1001, new BasicAccount(new AccountData(1001, "Example 2", "example2@gmail.com", 1000,"Basic")));
-        accounts.put(1002, new BasicAccount(new AccountData(1002, "Example 3", "example3@gmail.com", 3000,"Basic")));
+        accounts.put(1000, new BasicAccount(new AccountData(1000, "Example 1", "example1@gmail.com", (float) 500,"Basic")));
+        accounts.put(1001, new BasicAccount(new AccountData(1001, "Example 2", "example2@gmail.com", (float) 1000,"Basic")));
+        accounts.put(1002, new BasicAccount(new AccountData(1002, "Example 3", "example3@gmail.com", (float) 3000,"Basic")));
 
         accounts.put(2000, new PremiumAccount(new AccountData(
-                2000, "Example 1", "example1@gmail.com", 2000,"Premium"
+                2000, "Example 1", "example1@gmail.com", (float) 2000,"Premium"
         )));
         accounts.put(2001, new PremiumAccount(new AccountData(
-                2001, "Example 5", "example5@gmail.com", 9000,"Premium"
+                2001, "Example 5", "example5@gmail.com", (float) 9000,"Premium"
         )));
 
         accounts.put(3000, new KidsAccount(new AccountData(
-                3000, "Example 2", "example2@gmail.com", 2000,"Kids Savings"
+                3000, "Example 2", "example2@gmail.com", (float) 2000,"Kids Savings"
         )));
     }
 
@@ -45,24 +45,29 @@ public class Bank {
     public ActionResult<AccountData>  getAccountByEmail(String email) {
         Iterator it = accounts.entrySet().iterator();
         while (it.hasNext()) {
-            Entry pair = (Entry)it.next();
+            Entry pair = (Entry) it.next();
             Account bankValue = (Account) pair.getValue();
             if (bankValue.getAccountData().getEmail().equals(email)) {
                 return ActionResult.success(bankValue.getAccountData());
             }
         }
+                Alert noEmailorId = new Alert(Alert.AlertType.WARNING);
+                noEmailorId.setContentText("Please enter a different email or Account ID");
+                noEmailorId.showAndWait();
+
         return ActionResult.fail("No account with email: " + email + "\nTry a different email address");
+
     }
 
 
-    public ActionResult<AccountData> deposit(AccountData accountData, int amount) {
+    public ActionResult<AccountData> deposit(AccountData accountData, Float amount) {
         Account account = accounts.get(accountData.getId());
         account.deposit(amount);
 
         return ActionResult.success(account.getAccountData());
     }
 
-    public ActionResult<AccountData> withdraw(AccountData accountData, int amount) {
+    public ActionResult<AccountData> withdraw(AccountData accountData, Float amount) {
         Account account = accounts.get(accountData.getId());
         boolean ok = account.withdraw(amount);
         if (ok) {
