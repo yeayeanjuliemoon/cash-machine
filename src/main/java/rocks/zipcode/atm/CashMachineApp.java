@@ -1,12 +1,10 @@
 package rocks.zipcode.atm;
 
+import javafx.scene.control.*;
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.FlowPane;
@@ -20,7 +18,7 @@ public class CashMachineApp extends Application {
     private CashMachine cashMachine = new CashMachine(new Bank());
 
     private Parent createContent() {
-        VBox vbox = new VBox(10);
+        VBox vbox = new VBox(40);
         vbox.setPrefSize(600, 600);
 
         TextArea areaInfo = new TextArea();
@@ -33,6 +31,27 @@ public class CashMachineApp extends Application {
             areaInfo.setText(cashMachine.toString());
         });
 
+
+        MenuItem basic =new MenuItem("Basic");
+        MenuItem premium = new MenuItem("Premium");
+        MenuItem ksa = new MenuItem("KSA");
+        MenuButton menuButton =new MenuButton("Account Type",null,basic,premium,ksa);
+        Label accountselected = new Label("No Account selected");
+        basic.setOnAction(e ->{
+            accountselected.setText("Basic Account");
+
+        });
+        premium.setOnAction(e ->{
+            accountselected.setText("Premium Account");
+
+        });
+        ksa.setOnAction(e ->{
+            accountselected.setText("Kids Savings Account");
+
+        });
+
+
+
         Button btnDeposit = new Button("Deposit");
         btnDeposit.setOnAction(e -> {
 
@@ -40,6 +59,7 @@ public class CashMachineApp extends Application {
             cashMachine.deposit(amount);
 
             areaInfo.setText(cashMachine.toString());
+
         });
 
         Button btnWithdraw = new Button("Withdraw");
@@ -51,6 +71,8 @@ public class CashMachineApp extends Application {
 
             areaInfo.setText(cashMachine.toString());
         });
+
+
 
         Button btnExit = new Button("Exit");
         btnExit.setOnAction(e -> {
@@ -65,9 +87,12 @@ public class CashMachineApp extends Application {
         flowpane.getChildren().add(btnDeposit);
         flowpane.getChildren().add(btnWithdraw);
         flowpane.getChildren().add(btnExit);
-        vbox.getChildren().addAll(field, flowpane, areaInfo);
+        flowpane.getChildren().add(menuButton);
+        vbox.getChildren().addAll(field, flowpane,accountselected, areaInfo);
         return vbox;
     }
+
+
 
     @Override
     public void start(Stage stage) throws Exception {
