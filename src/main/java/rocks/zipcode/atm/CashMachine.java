@@ -29,6 +29,13 @@ public class CashMachine {
         );
     }
 
+    public void login(String email) {
+        tryCall(
+                () -> bank.getAccountByEmail(email),
+                update
+        );
+    }
+
     public void deposit(int amount) {
         if (accountData != null) {
             tryCall(
