@@ -28,7 +28,7 @@ public class Bank {
         )));
 
         accounts.put(3000, new KidsAccount(new AccountData(
-                2000, "Example 2", "example4@gmail.com", 2000,"Kids Savings"
+                3000, "Example 2", "example2@gmail.com", 2000,"Kids Savings"
         )));
     }
 
