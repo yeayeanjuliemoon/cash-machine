@@ -38,6 +38,8 @@ public class CashMachineApp extends Application {
         welcome.setText("Welcome to ZipCloud Bank!!\n Enjoy your Banking with us!!");
         welcome.setPrefHeight(40);  //sets height of the TextArea to 400 pixels
         welcome.setPrefWidth(40);
+        welcome.setEditable(false);
+        areaInfo.setEditable(false);
 
         MenuItem basic =new MenuItem("Basic");
         MenuItem premium = new MenuItem("Premium");
@@ -76,7 +78,7 @@ public class CashMachineApp extends Application {
         Button btnSubmit = new Button("Set Account ID");
         Button btnDeposit = new Button("Deposit");
         Button btnWithdraw = new Button("Withdraw");
-        Button btnExit = new Button("Exit");
+        Button btnExit = new Button("Log Out");
 
         emailSubmit.setOnAction(e -> {
             String emailAddress = email.getText();

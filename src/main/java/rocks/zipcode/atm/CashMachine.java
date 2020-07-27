@@ -70,7 +70,7 @@ public class CashMachine {
 
     @Override
     public String toString() {
-        return accountData != null ? accountData.toString() : "Try a different account number and click submit.";
+        return accountData != null ? accountData.toString() : "Enter an Account ID or Email and Click Submit";
     }
 
     private <T> void tryCall(Supplier<ActionResult<T> > action, Consumer<T> postAction) {
