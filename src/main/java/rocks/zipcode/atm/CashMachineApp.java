@@ -1,7 +1,7 @@
 package rocks.zipcode.atm;
 
 import javafx.scene.control.*;
-import rocks.zipcode.atm.bank.AccountData;
+
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -107,7 +107,17 @@ public class CashMachineApp extends Application {
 
 
         btnSubmit.setOnAction(e -> {
-            int id = Integer.parseInt(field.getText());
+            int id;
+            try {
+                id = Integer.parseInt(field.getText());
+            } catch (NumberFormatException ex){
+                Alert noId = new Alert(Alert.AlertType.WARNING);
+                noId.setContentText("Please enter a number");
+                noId.showAndWait();
+                field.setText("ID Login");
+                return;
+            }
+
             cashMachine.login(id);
             areaInfo.setText(cashMachine.toString());
 
