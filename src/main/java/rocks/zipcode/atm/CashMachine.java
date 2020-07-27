@@ -40,11 +40,7 @@ public class CashMachine {
         );
     }
 
-    public AccountData getAccountData(String email) {
-        tryCall(
-                () -> bank.getAccountByEmail(email),
-                update
-        );
+    public AccountData getAccountData() {
         return accountData;
     }
 
