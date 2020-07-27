@@ -13,6 +13,7 @@ public class CashMachine {
 
     private final Bank bank;
     private AccountData accountData = null;
+    private boolean accountFlag = false;
 
     public CashMachine(Bank bank) {
         this.bank = bank;
@@ -20,6 +21,9 @@ public class CashMachine {
 
     private Consumer<AccountData> update = data -> {
         accountData = data;
+        if(null != data.getEmail()) {
+            accountFlag = true;
+        }
     };
 
     public void login(int id) {
@@ -29,7 +33,18 @@ public class CashMachine {
         );
     }
 
-    public void deposit(int amount) {
+    public void login(String email) {
+        tryCall(
+                () -> bank.getAccountByEmail(email),
+                update
+        );
+    }
+
+    public AccountData getAccountData() {
+        return accountData;
+    }
+
+    public void deposit(Float amount) {
         if (accountData != null) {
             tryCall(
                     () -> bank.deposit(accountData, amount),
@@ -38,7 +53,7 @@ public class CashMachine {
         }
     }
 
-    public void withdraw(int amount) {
+    public void withdraw(Float amount) {
         if (accountData != null) {
             tryCall(
                     () -> bank.withdraw(accountData, amount),
@@ -55,7 +70,7 @@ public class CashMachine {
 
     @Override
     public String toString() {
-        return accountData != null ? accountData.toString() : "Try account 1000 or 2000 and click submit.";
+        return accountData != null ? accountData.toString() : "Enter an Account ID or Email and Click Submit";
     }
 
     private <T> void tryCall(Supplier<ActionResult<T> > action, Consumer<T> postAction) {
@@ -71,5 +86,21 @@ public class CashMachine {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
+    }
+
+    public AccountData getAccountType(String name, String type) {
+        tryCall(
+                () -> bank.getAccountByType(name, type),
+                update
+        );
+        return accountData;
+    }
+
+    public boolean isAccount() {
+        return this.accountFlag;
+    }
+
+    public void setAccountFlag(boolean flag) {
+        this.accountFlag = flag;
     }
 }
