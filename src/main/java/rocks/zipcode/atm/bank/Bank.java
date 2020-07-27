@@ -38,6 +38,10 @@ public class Bank {
         if (account != null) {
             return ActionResult.success(account.getAccountData());
         } else {
+            Alert noId = new Alert(Alert.AlertType.WARNING);
+            noId.setContentText("Please enter a different Account ID");
+            noId.showAndWait();
+
             return ActionResult.fail("No account with id: " + id + "\nTry a different account number");
         }
     }
@@ -51,9 +55,9 @@ public class Bank {
                 return ActionResult.success(bankValue.getAccountData());
             }
         }
-                Alert noEmailorId = new Alert(Alert.AlertType.WARNING);
-                noEmailorId.setContentText("Please enter a different email or Account ID");
-                noEmailorId.showAndWait();
+                Alert noEmail = new Alert(Alert.AlertType.WARNING);
+                noEmail.setContentText("Please enter a different email");
+                noEmail.showAndWait();
 
         return ActionResult.fail("No account with email: " + email + "\nTry a different email address");
 
