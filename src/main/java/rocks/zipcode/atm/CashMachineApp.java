@@ -48,7 +48,7 @@ public class CashMachineApp extends Application {
             accountSelected.setText("Basic Account");
             menuButton.setText("Basic");
             String emailAddress = email.getText();
-            String name = cashMachine.getAccountData(emailAddress).getName();
+            String name = cashMachine.getAccountData().getName();
             cashMachine.getAccountType(name, "Basic");
             areaInfo.setText(cashMachine.toString());
 
@@ -57,7 +57,7 @@ public class CashMachineApp extends Application {
             accountSelected.setText("Premium Account");
             menuButton.setText("Premium");
             String emailAddress = email.getText();
-            String name = cashMachine.getAccountData(emailAddress).getName();
+            String name = cashMachine.getAccountData().getName();
             cashMachine.getAccountType(name, "Premium");
             areaInfo.setText(cashMachine.toString());
 
@@ -66,7 +66,7 @@ public class CashMachineApp extends Application {
             accountSelected.setText("Kids Savings Account");
             menuButton.setText("KSA");
             String emailAddress = email.getText();
-            String name = cashMachine.getAccountData(emailAddress).getName();
+            String name = cashMachine.getAccountData().getName();
             cashMachine.getAccountType(name, "Kids Savings");
             areaInfo.setText(cashMachine.toString());
 
