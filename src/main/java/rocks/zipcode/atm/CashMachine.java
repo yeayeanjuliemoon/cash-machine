@@ -50,14 +50,14 @@ public class CashMachine {
                     () -> bank.deposit(accountData, amount),
                     update
             );
+
         }
     }
 
     public void withdraw(Float amount) {
         if (accountData != null) {
             tryCall(
-                    () -> bank.withdraw(accountData, amount),
-                    update
+                    () -> bank.withdraw(accountData, amount), update
             );
         }
     }
