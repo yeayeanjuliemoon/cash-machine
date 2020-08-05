@@ -32,6 +32,12 @@ public class Bank {
         )));
     }
 
+    public void addAccount(String name, Integer newId, String newEmail, float balance, String basic){
+        accounts.put(newId, new BasicAccount(new AccountData(
+                newId, name, newEmail, balance, basic
+        )));
+    }
+
     public ActionResult<AccountData> getAccountById(int id) {
         Account account = accounts.get(id);
 
