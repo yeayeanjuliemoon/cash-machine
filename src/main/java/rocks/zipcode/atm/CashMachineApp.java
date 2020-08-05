@@ -2,6 +2,9 @@ package rocks.zipcode.atm;
 
 import javafx.scene.control.*;
 
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -12,6 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.FlowPane;
+
+import static javax.print.attribute.standard.Chromaticity.COLOR;
 
 /**
  * @author ZipCodeWilmington
@@ -35,11 +40,12 @@ public class CashMachineApp extends Application {
         TextArea areaInfo = new TextArea();
         FlowPane flowpane = new FlowPane();
         TextArea welcome = new TextArea();
-        welcome.setText("Welcome to ZipCloud Bank!!\n Enjoy your Banking with us!!");
+        welcome.setText("\t\t\t\t\t\t\t\t\tWelcome to ZipCloud Bank!!\n \t\t\t\t\t\t\t\t\tEnjoy your Banking with us!!");
         welcome.setPrefHeight(40);  //sets height of the TextArea to 400 pixels
         welcome.setPrefWidth(40);
         welcome.setEditable(false);
         areaInfo.setEditable(false);
+
 
         MenuItem basic =new MenuItem("Basic");
         MenuItem premium = new MenuItem("Premium");
@@ -191,6 +197,7 @@ public class CashMachineApp extends Application {
         flowpane.getChildren().add(btnExit);
 
         vbox.getChildren().addAll(welcome,field, email,flowpane, areaInfo);
+        vbox.setBackground(new Background(new BackgroundFill(Color.LIGHTSTEELBLUE, null, null)));
         flowpane.setHgap(20);
 
         return vbox;
