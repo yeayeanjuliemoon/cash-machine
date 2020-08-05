@@ -17,18 +17,22 @@ public class ActionResult<T> {
     }
 
     public T getData() {
+
         return data;
     }
 
     public String getErrorMessage() {
+
         return errorMessage;
     }
 
     public boolean isSuccess() {
+
         return data != null;
     }
 
     public static <E> ActionResult<E> success(E data) {
+
         return new ActionResult<E>(data);
     }
 

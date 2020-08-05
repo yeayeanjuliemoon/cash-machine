@@ -15,7 +15,7 @@ public final class AccountData {
         return type;
     }
 
-    AccountData(int id, String name, String email, Float balance, String type) {
+    public AccountData(int id, String name, String email, Float balance, String type) {
         this.id = id;
         this.name = name;
         this.email = email;
