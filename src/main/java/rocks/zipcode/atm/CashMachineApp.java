@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -32,6 +33,12 @@ public class CashMachineApp extends Application {
     private TextField withdraw = new TextField();
 
     private CashMachine cashMachine = new CashMachine(new Bank());
+
+    private TextField name = new TextField();
+
+    private TextField newId = new TextField();
+
+    private TextField newEmail = new TextField();
 
     private Parent createContent() {
         VBox vbox = new VBox(20);
@@ -85,6 +92,8 @@ public class CashMachineApp extends Application {
         Button btnDeposit = new Button("Deposit");
         Button btnWithdraw = new Button("Withdraw");
         Button btnExit = new Button("Log Out");
+        Button btnNewAccount = new Button("New Account");
+        Button btnSubmitNewAccount = new Button("Submit");
 
         emailSubmit.setOnAction(e -> {
             String emailAddress = email.getText();
@@ -188,6 +197,40 @@ public class CashMachineApp extends Application {
 
         });
 
+        btnNewAccount.setOnAction(e -> {
+            String emailAddress = email.getText();
+            FlowPane root2 = new FlowPane();
+            Label label = new Label("Please create a new account.");
+            root2.getChildren().add(label);
+            Scene secondScene = new Scene(root2, 500,500);
+            Stage secondStage = new Stage();
+            secondStage.setScene(secondScene);
+            secondStage.setTitle("Open new Account");
+            secondStage.show();
+
+            root2.setHgap(50);
+            root2.setVgap(50);
+
+            name.setText("Name");
+            root2.getChildren().add(name);
+            newId.setText("New ID");
+            root2.getChildren().add(newId);
+            newEmail.setText("New Email");
+            root2.getChildren().add(newEmail);
+
+            root2.getChildren().add(btnSubmitNewAccount);
+
+        });
+
+        btnSubmitNewAccount.setOnAction(e ->{
+            String userName = name.getText();
+            String userEmailId = newEmail.getText();
+            Integer userId = Integer.parseInt(newId.getText());
+            cashMachine.addAccount(userName, userId, userEmailId);
+        });
+
+
+
         email.setText("Email Address");
         flowpane.getChildren().add(emailSubmit);
 
@@ -195,6 +238,8 @@ public class CashMachineApp extends Application {
         flowpane.getChildren().add(btnSubmit);
 
         flowpane.getChildren().add(btnExit);
+
+        flowpane.getChildren().add(btnNewAccount);
 
         vbox.getChildren().addAll(welcome,field, email,flowpane, areaInfo);
         vbox.setBackground(new Background(new BackgroundFill(Color.LIGHTSTEELBLUE, null, null)));

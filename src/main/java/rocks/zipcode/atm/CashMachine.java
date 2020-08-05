@@ -96,6 +96,11 @@ public class CashMachine {
         return accountData;
     }
 
+    public void addAccount(String name, Integer newId, String newEmail){
+        //Bank bank = new Bank();
+        bank.addAccount(name, newId, newEmail, 0f, "Basic");
+    }
+
     public boolean isAccount() {
         return this.accountFlag;
     }
